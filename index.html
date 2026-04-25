@@ -253,12 +253,24 @@
 
   <!-- Expertise Popup Modal -->
   <div id="exp-modal" onclick="closeModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.45); z-index:1000; align-items:center; justify-content:center;">
-    <div onclick="event.stopPropagation()" style="background:#faf9f7; border-radius:12px; padding:36px; max-width:520px; width:90%; margin:0 auto; position:relative; word-break:keep-all; overflow-y:auto; max-height:90vh;">
-      <button onclick="closeModal()" style="position:absolute; top:16px; right:20px; background:none; border:none; font-size:20px; color:#b5afa6; cursor:pointer;">×</button>
-      <div id="modal-tag" style="font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#5a8f76; margin-bottom:12px;"></div>
-      <div id="modal-title" style="font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:20px; font-weight:400; color:#1a1a1a; margin-bottom:20px; line-height:1.4; word-break:keep-all;"></div>
-      <div id="modal-stats" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#e2ddd6; border:.5px solid #e2ddd6; border-radius:6px; overflow:hidden; margin-bottom:20px;"></div>
-      <div id="modal-desc" style="font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:13px; color:#8a8278; line-height:1.85; font-weight:300; word-break:keep-all; text-align:left;"></div>
+    <div onclick="event.stopPropagation()" style="background:#faf9f7; border-radius:12px; padding:0; max-width:520px; width:90%; margin:0 auto; position:relative; word-break:keep-all; overflow:hidden; max-height:90vh; overflow-y:auto;">
+      <button onclick="closeModal()" style="position:absolute; top:16px; right:16px; background:rgba(250,249,247,0.9); border:none; font-size:20px; color:#b5afa6; cursor:pointer; z-index:10; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;">×</button>
+
+      <!-- 이미지 슬라이더 -->
+      <div style="position:relative; width:100%; height:200px; background:#f0ece5; overflow:hidden;">
+        <div id="modal-slides" style="display:flex; height:100%; transition:transform 0.3s ease;"></div>
+        <button id="prev-btn" onclick="slideImg(-1)" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); background:rgba(250,249,247,0.85); border:none; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:14px; color:#8a8278;">‹</button>
+        <button id="next-btn" onclick="slideImg(1)" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(250,249,247,0.85); border:none; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:14px; color:#8a8278;">›</button>
+        <div id="slide-dots" style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:5px;"></div>
+      </div>
+
+      <!-- 내용 -->
+      <div style="padding:28px;">
+        <div id="modal-tag" style="font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#5a8f76; margin-bottom:12px;"></div>
+        <div id="modal-title" style="font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:20px; font-weight:400; color:#1a1a1a; margin-bottom:20px; line-height:1.4; word-break:keep-all;"></div>
+        <div id="modal-stats" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#e2ddd6; border:.5px solid #e2ddd6; border-radius:6px; overflow:hidden; margin-bottom:20px;"></div>
+        <div id="modal-desc" style="font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:13px; color:#8a8278; line-height:1.85; font-weight:300; word-break:keep-all; text-align:left;"></div>
+      </div>
     </div>
   </div>
 
@@ -630,10 +642,12 @@
 </div>
 
 <script>
+const BASE = 'https://raw.githubusercontent.com/gwanhakim-debug/gwen-portfolio/main/images/';
 const expData = [
   {
     tag: "중장기 HR 전략 & 제도 기획",
-    title: "HR 제도를 처음부터\n끝까지 설계했습니다",
+    title: "HR 제도를 처음부터 끝까지 설계했습니다",
+    images: [BASE+'exp1-1.jpg', BASE+'exp1-2.jpg', BASE+'exp1-3.jpg', BASE+'exp1-4.jpg'],
     stats: [
       { n: "300명", l: "직무 분석\n& JD 표준화" },
       { n: "3년", l: "PMI 제도\n통합 기간" },
@@ -643,73 +657,121 @@ const expData = [
   },
   {
     tag: "채용 · 평가 · 보상 · 승진 운영",
-    title: "데이터 기반으로\n성과를 설계했습니다",
+    title: "데이터 기반으로 성과를 설계했습니다",
+    images: [BASE+'exp2-1.jpg', BASE+'exp2-2.jpg', BASE+'exp2-3.jpg', BASE+'exp2-4.jpg'],
     stats: [
       { n: "100%", l: "목표 수립\n완료율 달성" },
       { n: "3년치", l: "평가 데이터\n분석" },
       { n: "0건", l: "평가 결과\n이의제기" }
     ],
-    desc: "OKR → KPI 전면 개편, 목표수립-중간점검-연말평가 3단계 프로세스 설계. 부서 이동 시 평가 사각지대를 없애는 '3-6-9 Pro-rata 로직' 직접 설계 후 HR 시스템 반영. 과거 3년치 평가 데이터 분석으로 S등급 최적 컷오프 기준 산출, 엑셀 기반 보상 시뮬레이션 도구 직접 개발."
+    desc: "OKR → KPI 전면 개편, 목표수립-중간점검-연말평가 3단계 프로세스 설계. 부서 이동 시 평가 사각지대를 없애는 '3-6-9 Pro-rata 로직' 직접 설계 후 HR 시스템 반영. 과거 3년치 평가 데이터 분석으로 S등급 최적 컷오프 기준 산출."
   },
   {
     tag: "노무 & 법적 리스크 관리",
-    title: "200명 구조조정,\n법적 분쟁 0건",
+    title: "200명 구조조정, 법적 분쟁 0건",
+    images: [BASE+'exp3-1.jpg', BASE+'exp3-2.jpg', BASE+'exp3-3.jpg', BASE+'exp3-4.jpg'],
     stats: [
       { n: "200명", l: "구조조정\n인원" },
       { n: "0건", l: "법적 분쟁" },
       { n: "100%", l: "합의퇴직\n달성" }
     ],
-    desc: "오프라인 채널 철수에 따른 판매직 약 200명 단계적 구조조정 기획·실행. 부당해고 구제신청 등 법적 리스크를 노무 컨설팅으로 사전 시뮬레이션, Legal Defense 수립. 대상자 전원 1:1 경청 면담 직접 설계·진행. 노사협의회 5년 이상 운영, 취업규칙 및 사내 규정 개정 직접 수행."
+    desc: "오프라인 채널 철수에 따른 판매직 약 200명 단계적 구조조정 기획·실행. 부당해고 구제신청 등 법적 리스크를 노무 컨설팅으로 사전 시뮬레이션, Legal Defense 수립. 대상자 전원 1:1 경청 면담 직접 설계·진행."
   },
   {
     tag: "조직문화 & 임직원 커뮤니케이션",
-    title: "제도가 아닌 사람을\n움직이는 문화 설계",
+    title: "제도가 아닌 사람을 움직이는 문화 설계",
+    images: [BASE+'exp4-1.jpg', BASE+'exp4-2.jpg', BASE+'exp4-3.jpg', BASE+'exp4-4.jpg'],
     stats: [
       { n: "600만", l: "핑크리본\n캠페인 모금" },
       { n: "300명", l: "송년회\n기획·운영" },
       { n: "2년", l: "뉴비즈클럽\n운영" }
     ],
-    desc: "신규입사자 OJT 전면 리뉴얼, 타 부서 네트워킹 '뉴비즈클럽' 기획·운영. MZ세대 트렌드 탐방 'Kool Hunting 프로젝트' 기획, 전사 송년회 300명 규모 기획·운영. 핑크리본 캠페인 도입으로 600만원 모금. 조직문화 리스크 진단(CBCR) 설계·실시, 진단→설계→실행→재진단 사이클 직접 운영."
+    desc: "신규입사자 OJT 전면 리뉴얼, 타 부서 네트워킹 '뉴비즈클럽' 기획·운영. MZ세대 트렌드 탐방 'Kool Hunting 프로젝트' 기획, 전사 송년회 300명 규모 기획·운영. 핑크리본 캠페인 도입으로 600만원 모금."
   },
   {
     tag: "HR 시스템 & 데이터 분석",
-    title: "HR 인프라를\n처음부터 구축했습니다",
+    title: "HR 인프라를 처음부터 구축했습니다",
+    images: [BASE+'exp5-1.jpg', BASE+'exp5-2.jpg', BASE+'exp5-3.jpg', BASE+'exp5-4.jpg'],
     stats: [
       { n: "7년", l: "e-HR\n안정적 운영" },
       { n: "350명", l: "팽창 시기\n무결점 처리" },
       { n: "2개", l: "글로벌 시스템\n연동 설계" }
     ],
-    desc: "오라클 기반 e-HR 도입 PM(요구사항 정의 → 데이터 클렌징 → UAT → 오픈) 전 과정 단독 총괄. SAP SuccessFactors ↔ 더존(Amaranth) ERP 데이터 매핑 테이블 직접 설계. 현재 Python·Streamlit으로 HR 대시보드 개발 중, ADsP·SQLD 자격증 취득 목표."
+    desc: "오라클 기반 e-HR 도입 PM(요구사항 정의 → 데이터 클렌징 → UAT → 오픈) 전 과정 단독 총괄. SAP SuccessFactors ↔ 더존(Amaranth) ERP 데이터 매핑 테이블 직접 설계. 현재 Python·Streamlit으로 HR 대시보드 개발 중."
   },
   {
     tag: "글로벌 협업 & 경영진 보고",
-    title: "영문 HR 보고서를\n단독으로 기획·제작",
+    title: "영문 HR 보고서를 단독으로 기획·제작",
+    images: [BASE+'exp6-1.jpg', BASE+'exp6-2.jpg', BASE+'exp6-3.jpg', BASE+'exp6-4.jpg'],
     stats: [
       { n: "영문", l: "HR 정례보고\n단독 제작" },
       { n: "2개국", l: "해외법인\nHR 운영·철수" },
       { n: "3개국", l: "North Asia\nHR 리포팅" }
     ],
-    desc: "Global·APAC Leadership Team 대상 HR 정례보고 영문 PPT 직접 기획·제작. 'Business Context – HR Challenge – Solution – Roadmap' 스토리라인 구성으로 비영어권 HR 이슈를 글로벌 경영진이 직관적으로 이해할 수 있도록 지원. 중국·미국 해외법인 HR 운영 및 철수 Soft-Landing 경험."
+    desc: "Global·APAC Leadership Team 대상 HR 정례보고 영문 PPT 직접 기획·제작. 'Business Context – HR Challenge – Solution – Roadmap' 스토리라인 구성으로 글로벌 경영진이 직관적으로 이해할 수 있도록 지원. 중국·미국 해외법인 HR 운영 및 철수 경험."
   }
 ];
 
+let currentSlide = 0;
+
 function openModal(idx) {
   const d = expData[idx];
+  currentSlide = 0;
+
   document.getElementById('modal-tag').textContent = d.tag;
-  document.getElementById('modal-title').innerHTML = d.title.replace('\n', '<br>');
+  document.getElementById('modal-title').textContent = d.title;
   document.getElementById('modal-desc').textContent = d.desc;
 
+  // 슬라이드 이미지 세팅
+  const slidesEl = document.getElementById('modal-slides');
+  slidesEl.style.width = (d.images.length * 100) + '%';
+  slidesEl.innerHTML = d.images.map(src =>
+    `<div style="width:${100/d.images.length}%; height:200px; flex-shrink:0;">
+      <img src="${src}" style="width:100%; height:100%; object-fit:cover;" />
+    </div>`
+  ).join('');
+  slidesEl.style.transform = 'translateX(0)';
+
+  // 점 세팅
+  const dotsEl = document.getElementById('slide-dots');
+  dotsEl.innerHTML = d.images.map((_, i) =>
+    `<div id="dot-${i}" onclick="goSlide(${i})" style="width:6px; height:6px; border-radius:50%; background:${i===0?'#faf9f7':'rgba(250,249,247,0.5)'}; cursor:pointer;"></div>`
+  ).join('');
+
+  // 통계 세팅
   const statsEl = document.getElementById('modal-stats');
   statsEl.innerHTML = d.stats.map(s =>
     `<div style="background:#faf9f7; padding:18px 12px; text-align:center;">
-      <div style="font-family:'Cormorant Garamond','Inter',Georgia,serif; font-size:28px; font-weight:300; color:#1a1a1a; line-height:1;">${s.n}</div>
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:28px; font-weight:300; color:#1a1a1a; line-height:1;">${s.n}</div>
       <div style="font-family:'Inter',-apple-system,sans-serif; font-size:10px; color:#b5afa6; margin-top:6px; line-height:1.4; word-break:keep-all;">${s.l.replace('\n','<br>')}</div>
     </div>`
   ).join('');
 
+  // 현재 데이터 저장
+  document.getElementById('exp-modal').dataset.idx = idx;
+
   const modal = document.getElementById('exp-modal');
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+}
+
+function goSlide(n) {
+  const idx = document.getElementById('exp-modal').dataset.idx;
+  const d = expData[idx];
+  currentSlide = n;
+  const pct = (100 / d.images.length) * currentSlide;
+  document.getElementById('modal-slides').style.transform = `translateX(-${pct}%)`;
+  d.images.forEach((_, i) => {
+    const dot = document.getElementById(`dot-${i}`);
+    if(dot) dot.style.background = i === currentSlide ? '#faf9f7' : 'rgba(250,249,247,0.5)';
+  });
+}
+
+function slideImg(dir) {
+  const idx = document.getElementById('exp-modal').dataset.idx;
+  const d = expData[idx];
+  currentSlide = (currentSlide + dir + d.images.length) % d.images.length;
+  goSlide(currentSlide);
 }
 
 function closeModal() {
