@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gwen Kim — HR Strategist & Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #faf9f7;
+      --bg-card: #f5f2ee;
+      --text: #1a1a1a;
+      --text-muted: #8a8278;
+      --text-faint: #b5afa6;
+      --line: #e2ddd6;
+      --line-light: #eeebe5;
+      --accent: #5a8f76;
+      --accent-bg: #edf4f0;
+      --accent-border: #c8dfd4;
+      --tag-bg: #f0ece5;
+      --tag-text: #8a8070;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: 780px; margin: 0 auto; padding: 80px 48px 80px; }
+    @media (max-width: 600px) { .page { padding: 48px 24px 60px; } }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade { animation: fadeUp .7s ease both; }
+    .fade-1 { animation-delay: .05s; }
+    .fade-2 { animation-delay: .15s; }
+    .fade-3 { animation-delay: .25s; }
+    .fade-4 { animation-delay: .35s; }
+    .fade-5 { animation-delay: .45s; }
+    .fade-6 { animation-delay: .55s; }
+    .fade-7 { animation-delay: .65s; }
+    .fade-8 { animation-delay: .75s; }
+
+    .kicker {
+      font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--text-faint); display: flex; align-items: center;
+      gap: 12px; margin-bottom: 36px;
+    }
+    .kicker::after { content: ''; flex: 1; height: .5px; background: var(--line); }
+
+    .hero { margin-bottom: 60px; }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', var(--serif);
+      font-size: clamp(52px, 8vw, 80px);
+      font-weight: 300; line-height: 1.0;
+      letter-spacing: -.02em; color: var(--text);
+    }
+    .hero h1 em { font-style: italic; color: var(--text-muted); }
+    .hero-tagline {
+      margin-top: 20px; font-size: 13.5px; font-weight: 300;
+      color: var(--text-muted); line-height: 1.9; max-width: 500px;
+    }
+
+    .divider { height: .5px; background: var(--line); margin: 48px 0; }
+
+    .section-label {
+      font-size: 9px; letter-spacing: .26em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 22px;
+    }
+
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--line);
+      border: .5px solid var(--line); border-radius: 6px; overflow: hidden;
+    }
+    @media (max-width: 540px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+    .stat { background: var(--bg); padding: 24px 16px; text-align: center; }
+    .stat-n {
+      font-family: 'Cormorant Garamond', var(--serif);
+      font-size: 40px; font-weight: 300; line-height: 1; color: var(--text);
+    }
+    .stat-n sup { font-size: 18px; color: var(--text-faint); vertical-align: super; }
+    .stat-l { font-size: 10px; color: var(--text-faint); margin-top: 8px; letter-spacing: .04em; line-height: 1.5; }
+
+    .expertise { display: flex; flex-direction: column; }
+    .exp-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 16px; padding: 15px 0; border-bottom: .5px solid var(--line-light);
+      transition: background .15s;
+    }
+    .exp-row:first-child { border-top: .5px solid var(--line-light); }
+    .exp-row:hover { background: #f7f4f0; margin: 0 -12px; padding: 15px 12px; border-radius: 4px; border-color: transparent; }
+    .exp-name { font-size: 14px; font-weight: 400; color: #2a2a2a; white-space: nowrap; }
+    .exp-detail { font-size: 11.5px; color: var(--text-faint); font-weight: 300; text-align: right; }
+
+    .timeline { display: flex; flex-direction: column; }
+    .tl-row {
+      display: grid; grid-template-columns: 108px 1fr;
+      gap: 24px; padding: 22px 0;
+      border-bottom: .5px solid var(--line-light); align-items: start;
+    }
+    .tl-row:first-child { border-top: .5px solid var(--line-light); }
+    .tl-period { font-size: 11px; color: var(--text-faint); font-weight: 300; letter-spacing: .03em; line-height: 1.6; }
+    .tl-duration { font-size: 10px; color: var(--accent); margin-top: 3px; }
+    .tl-title { font-size: 13.5px; font-weight: 500; color: #2a2a2a; margin-bottom: 3px; line-height: 1.4; }
+    .tl-dept { font-size: 11.5px; color: var(--text-muted); margin-bottom: 7px; }
+    .tl-desc { font-size: 12px; color: #9a9288; font-weight: 300; line-height: 1.8; }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+    .tag {
+      display: inline-block; font-size: 10px; letter-spacing: .04em;
+      padding: 3px 10px; border-radius: 100px;
+      background: var(--tag-bg); color: var(--tag-text);
+    }
+    .tag.now {
+      background: var(--accent-bg); color: var(--accent);
+      border: .5px solid var(--accent-border);
+    }
+
+    .projects { display: flex; flex-direction: column; gap: 14px; }
+    .proj-card {
+      background: var(--bg-card); border: .5px solid var(--line-light);
+      border-radius: 8px; padding: 20px 24px;
+    }
+    .proj-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 16px; margin-bottom: 8px; flex-wrap: wrap;
+    }
+    .proj-title { font-size: 13.5px; font-weight: 500; color: #2a2a2a; }
+    .proj-period { font-size: 10.5px; color: var(--text-faint); white-space: nowrap; }
+    .proj-desc { font-size: 12px; color: #9a9288; line-height: 1.8; font-weight: 300; }
+    .proj-result {
+      margin-top: 10px; font-size: 11.5px; color: var(--accent);
+      font-weight: 400; display: flex; align-items: baseline; gap: 6px;
+    }
+    .proj-result::before { content: '→'; font-size: 11px; }
+
+    .now-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 540px) { .now-grid { grid-template-columns: 1fr; } }
+    .now-card {
+      background: var(--bg-card); border: .5px solid var(--line-light);
+      border-radius: 8px; padding: 24px;
+    }
+    .now-card-label {
+      font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    .now-card-title {
+      font-family: 'Cormorant Garamond', var(--serif);
+      font-size: 20px; font-weight: 300; color: #2a2a2a;
+      line-height: 1.3; margin-bottom: 10px;
+    }
+    .now-card p { font-size: 12px; color: #9a9288; line-height: 1.8; font-weight: 300; }
+    .prog-row { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .prog-label {
+      font-size: 11px; color: var(--text-muted);
+      display: flex; justify-content: space-between; margin-bottom: 5px;
+    }
+    .prog-pct { color: var(--accent); }
+    .prog-bar { height: 1.5px; background: var(--line); border-radius: 2px; }
+    .prog-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+
+    .skills-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--line);
+      border: .5px solid var(--line); border-radius: 6px; overflow: hidden;
+    }
+    @media (max-width: 480px) { .skills-grid { grid-template-columns: 1fr; } }
+    .skill-cell { background: var(--bg); padding: 18px 20px; }
+    .skill-cell-label {
+      font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 8px;
+    }
+    .skill-cell-items { font-size: 12px; color: var(--text-muted); line-height: 1.9; font-weight: 300; }
+
+    .cert-list { display: flex; flex-direction: column; }
+    .cert-row {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 12px 0; border-bottom: .5px solid var(--line-light);
+      justify-content: space-between; flex-wrap: wrap;
+    }
+    .cert-row:first-child { border-top: .5px solid var(--line-light); }
+    .cert-name { font-size: 13px; font-weight: 400; color: #2a2a2a; }
+    .cert-org { font-size: 11px; color: var(--text-faint); font-weight: 300; text-align: right; }
+
+    .footer {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      margin-top: 56px; padding-top: 28px; border-top: .5px solid var(--line);
+    }
+    .footer-name {
+      font-family: 'Cormorant Garamond', var(--serif);
+      font-style: italic; font-size: 15px; color: var(--text-faint);
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-link {
+      font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--text-faint); text-decoration: none; transition: color .2s;
+    }
+    .footer-link:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="kicker fade fade-1">HR Strategist & Data Analyst · Yongin, Korea</div>
+
+  <div class="hero fade fade-2">
+    <h1>Gwen Kim<br><em>People &amp; Data</em></h1>
+    <p class="hero-tagline">
+      스타트업 80명부터 글로벌 M&amp;A, 구조조정, 매각 검토까지 — HR의 전 사이클을 최전선에서 주도해온 11년 경력의 HR 전문가.
+      지금은 데이터 언어까지 더해 HR을 다시 설계하는 중입니다.
+    </p>
+  </div>
+
+  <!-- Stats -->
+  <div class="fade fade-3">
+    <div class="section-label">At a glance</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-n">11<sup>+</sup></div>
+        <div class="stat-l">Years in HR</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">4</div>
+        <div class="stat-l">기업 HR 경험<br>(제조·서비스·유통·외자계)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">200<sup>+</sup></div>
+        <div class="stat-l">M&amp;A 통합·구조조정<br>관리 인원</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">0</div>
+        <div class="stat-l">법적 분쟁<br>(100% 합의퇴직)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Expertise -->
+  <div class="fade fade-3">
+    <div class="section-label">Expertise</div>
+    <div class="expertise">
+      <div class="exp-row">
+        <span class="exp-name">중장기 HR 전략 &amp; 제도 기획</span>
+        <span class="exp-detail">직무급제 전환 · JD 표준화 · 연간 인력계획 · 예산 관리</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-name">채용 · 평가 · 보상 · 승진 운영</span>
+        <span class="exp-detail">보상 시뮬레이션 · Pro-rata 로직 설계 · 경영진 보고 단독 기획</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-name">노무 &amp; 법적 리스크 관리</span>
+        <span class="exp-detail">구조조정 기획 · 노사협의회 운영 · 취업규칙 개정 · 해외법인 철수</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-name">조직문화 &amp; 임직원 커뮤니케이션</span>
+        <span class="exp-detail">문화 진단(CBCR) · OJT 리뉴얼 · 뉴비즈클럽 · Townhall 기획</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-name">HR 시스템 &amp; 데이터 분석</span>
+        <span class="exp-detail">e-HR PM · SAP SuccessFactors · Python · HR 대시보드 개발</span>
+      </div>
+      <div class="exp-row">
+        <span class="exp-name">글로벌 협업 &amp; 경영진 보고</span>
+        <span class="exp-detail">ELC Global/APAC HR 정례보고 · 영문 PPT 단독 제작 · 해외법인 HR</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Career -->
+  <div class="fade fade-4">
+    <div class="section-label">Career</div>
+    <div class="timeline">
+
+      <div class="tl-row">
+        <div>
+          <div class="tl-period">2018.09 — 현재</div>
+          <div class="tl-duration">7년 7개월</div>
+        </div>
+        <div>
+          <div class="tl-title">해브앤비 유한회사 (Dr. Jart+ / Estée Lauder Companies)</div>
+          <div class="tl-dept">인사팀 · 과장</div>
+          <div class="tl-desc">
+            입사 시점 80명 스타트업이 글로벌 M&amp;A를 거쳐 350명으로 팽창하고 다시 120명으로 슬림화되는 전 과정 HR 주도.
+            직무급제(Job Grade 1~20) 전환 실무 총괄, 전사 300명 직무 분석 및 ELC 글로벌 표준 코드 100% 매핑.
+            오라클 기반 e-HR 도입 PM(8개월 구축 + 7년 운영), SAP SuccessFactors ↔ 더존 ERP 데이터 정합성 설계.
+            글로벌 HR 챗봇 한국 법인 실무 PM(2025.12–진행 중), Global·APAC Leadership Team HR 영문 정례보고 단독 제작.
+            노사협의회 5년 이상 운영, 조직문화 진단(CBCR)·개선 사이클 직접 운영, 핑크리본 캠페인 600만원 모금.
+          </div>
+          <div class="tl-tags">
+            <span class="tag">M&amp;A PMI</span>
+            <span class="tag">직무급제 전환</span>
+            <span class="tag">e-HR PM</span>
+            <span class="tag">구조조정 0건 분쟁</span>
+            <span class="tag">조직문화</span>
+            <span class="tag">글로벌 보고</span>
+            <span class="tag now">재직 중</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div>
+          <div class="tl-period">2017.10 — 2018.02</div>
+          <div class="tl-duration">5개월</div>
+        </div>
+        <div>
+          <div class="tl-title">BAT 로스만스 (British American Tobacco)</div>
+          <div class="tl-dept">인사부 · 주임 (파견)</div>
+          <div class="tl-desc">
+            한국·일본·대만(North Asia) 전 인원 헤드카운트 트래킹 및 APAC 리포팅.
+            SAP SuccessFactors 도입·안정화 단계 레거시 데이터 클렌징 및 QC.
+            London HQ 제출용 분기별 HR 리포트 생성, 인건비 예산 대비 실적 차이(Variance Analysis) 수행.
+          </div>
+          <div class="tl-tags">
+            <span class="tag">SAP SuccessFactors</span>
+            <span class="tag">글로벌 HR 리포팅</span>
+            <span class="tag">데이터 클렌징</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div>
+          <div class="tl-period">2016.08 — 2017.08</div>
+          <div class="tl-duration">1년</div>
+        </div>
+        <div>
+          <div class="tl-title">원앤원 ㈜ (원할머니보쌈·족발)</div>
+          <div class="tl-dept">가맹사업본부 교육파트 · 사원 (계약)</div>
+          <div class="tl-desc">
+            신규 가맹점주 입문 교육 커리큘럼 설계 및 강의 진행.
+            QR코드 기반 직무 영상 매뉴얼 기획, 우수 지점 성공 사례집 제작·배포.
+            서비스 품질 저조 점포 원인 분석 및 개선 컨설팅, 슈퍼바이저 코칭 가이드 작성.
+          </div>
+          <div class="tl-tags">
+            <span class="tag">교육과정 설계</span>
+            <span class="tag">현장 컨설팅</span>
+            <span class="tag">매뉴얼 시각화</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div>
+          <div class="tl-period">2014.08 — 2016.08</div>
+          <div class="tl-duration">2년</div>
+        </div>
+        <div>
+          <div class="tl-title">웅진씽크빅 ㈜</div>
+          <div class="tl-dept">홈스쿨사업본부 교육팀 · 서울서북사업본부 교육팀장</div>
+          <div class="tl-desc">
+            전국 사업본부 신규 입사자(영업 조직) OJT 커리큘럼 기획 및 운영, 신규 서비스 런칭 시 전국 순회 교육.
+            월별 매출 실적·인당 생산성 분석, 교사 가동 인원(Active Headcount) 데일리 트래킹 및 본부 보고.
+            신입 교사 멘토링 프로그램·사내 강사 양성과정 기획, 채용 설명회(CIS) 운영.
+          </div>
+          <div class="tl-tags">
+            <span class="tag">OJT 설계</span>
+            <span class="tag">성과 분석</span>
+            <span class="tag">교육팀장</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Key Projects -->
+  <div class="fade fade-5">
+    <div class="section-label">Key Projects</div>
+    <div class="projects">
+
+      <div class="proj-card">
+        <div class="proj-header">
+          <span class="proj-title">글로벌 HR 챗봇 한국 법인 실무 PM</span>
+          <span class="proj-period">2025.12 — 진행 중</span>
+        </div>
+        <div class="proj-desc">
+          글로벌 HQ 주도 HR 서비스 챗봇 도입에서 Dr.Jart+ 단독 실무 PM.
+          로컬 HR 규정·복리후생·보상 정책을 챗봇 DB 구조에 맞게 마이그레이션, 임직원 문의 이력 분석으로 다빈도 FAQ 시나리오 기획.
+          로컬 UAT 세팅, 테스트 케이스 설계, HQ 개발팀과 영문 이슈 커뮤니케이션 전담.
+        </div>
+        <div class="proj-result">HR DX 로컬 리딩 · 다국적 협업 역량 입증</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-header">
+          <span class="proj-title">대규모 인력 구조화 및 Legal Defense 수립</span>
+          <span class="proj-period">2020.08 — 2024.11</span>
+        </div>
+        <div class="proj-desc">
+          판매직 약 200명 단계적 구조조정 시나리오 및 법적 리스크 사전 시뮬레이션.
+          1차 백화점·직영점 22명(2020–2021) · 2차 전국 면세점 180명(2024) 퇴직 패키지 보상 시뮬레이션, 대상자 전원 1:1 경청 면담 직접 설계·진행.
+        </div>
+        <div class="proj-result">법적 분쟁 0건 · 100% 합의퇴직 달성 · 대규모 인건비 구조 개선</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-header">
+          <span class="proj-title">PMI: 직무급제 도입 및 인사제도 글로벌 통합</span>
+          <span class="proj-period">2020.01 — 2022.12</span>
+        </div>
+        <div class="proj-desc">
+          전 사원(약 300명) 직무 분석 수행, 로컬 직무를 ELC 글로벌 직무 표준 코드와 100% 매핑.
+          호봉제 → 직무 가치 중심 Global Job Grade(Level 1~20) 전환 시뮬레이션, 대외 호칭(Korean Title)과 실질 보상 기준(Global Grade) 분리 운영 로직 설계.
+          직급별 설명회·Calibration 세션 운영, 직원 개인별 Grade 변경 커뮤니케이션 자료 작성.
+        </div>
+        <div class="proj-result">글로벌 스탠다드 기반 성과주의 인사체계 안착 · 300명 직무 분류 100% 구축</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-header">
+          <span class="proj-title">성과관리 체계 개편 및 Pro-rata 로직 시스템화</span>
+          <span class="proj-period">2021.07 — 현재</span>
+        </div>
+        <div class="proj-desc">
+          OKR → 글로벌 표준 KPI 전면 개편, 목표수립-중간점검-연말평가 3단계 프로세스 가이드 제작 및 전 직원 간담회 운영.
+          부서 이동 시 평가 사각지대 해소를 위한 '3-6-9 Pro-rata 로직' 직접 설계 후 HR 시스템 반영.
+          과거 3년치 평가 데이터 분석으로 S등급 최적 컷오프 기준 산출, 엑셀 함수 기반 시뮬레이션 도구 직접 개발.
+        </div>
+        <div class="proj-result">제도 변경 첫 해 목표 수립 완료율 100% · 평가 이의제기 최소화</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-header">
+          <span class="proj-title">e-HR 시스템 도입 PM 및 글로벌 데이터 정합성 확보</span>
+          <span class="proj-period">2018.10 — 현재 (7년 운영)</span>
+        </div>
+        <div class="proj-desc">
+          오라클 기반 e-HR 요구사항 정의(PI), 레거시 데이터 클렌징, UAT, 오픈 전 과정 단독 총괄.
+          SAP SuccessFactors ↔ 로컬 더존(Amaranth) ERP 간 데이터 매핑 테이블 직접 설계, 두 시스템 동기화 기준 문서화.
+          운영 매뉴얼 제작·배포, 전 직원 사용자 교육, 연간 SLA 유지보수 계약 관리.
+        </div>
+        <div class="proj-result">350명 팽창 시기 HR 행정 처리시간 대폭 단축 · 7년간 안정적 운영</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-header">
+          <span class="proj-title">조직문화 프로그램 기획 · 운영</span>
+          <span class="proj-period">2018 — 현재</span>
+        </div>
+        <div class="proj-desc">
+          신규입사자 OJT 전면 리뉴얼(제조·물류 현장 견학, 임원 간담회 포함) 및 타 부서 네트워킹 프로그램 '뉴비즈 클럽' 기획·운영(2018–2020).
+          MZ세대 트렌드 탐방 프로그램 'Kool Hunting 프로젝트' 기획(2020–2022), 전사 송년회 300명(대면) · 200명(비대면) 기획·운영(2020–현재).
+          핑크리본 캠페인 사내 도입, 직원 참여형 도네이션으로 약 600만원 모금(2019).
+          조직문화 리스크 진단(CBCR) 설계·실시, 진단→설계→실행→재진단 개선 사이클 직접 운영.
+        </div>
+        <div class="proj-result">조직 몰입도 향상 · M&amp;A 이후 구성원 신뢰 회복 기여</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Right Now -->
+  <div class="fade fade-6">
+    <div class="section-label">Right Now</div>
+    <div class="now-grid">
+      <div class="now-card">
+        <div class="now-card-label">현재 학습 중</div>
+        <div class="now-card-title">데이터로 HR을<br>다시 보는 중</div>
+        <p>4월 Python 기초 과정에 이어, 5월부터 빅데이터분석 실무 과정 등록 — pandas · 시각화 실무 적용 집중 학습.</p>
+        <div class="prog-row">
+          <div class="prog-item">
+            <div class="prog-label"><span>Python 기초 (4월 과정)</span><span class="prog-pct">완료</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>빅데이터분석 실무 (5월 등록)</span><span class="prog-pct">진행 중</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:15%"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>ADsP (7–8월 시험)</span><span class="prog-pct">준비 중</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:30%"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>SQLD (7–8월 시험)</span><span class="prog-pct">준비 중</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:30%"></div></div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-label"><span>GitHub 포트폴리오 (3종)</span><span class="prog-pct">40%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:40%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="now-card">
+        <div class="now-card-label">Beyond Work</div>
+        <div class="now-card-title">달리고, 배우고,<br>성장하는 중</div>
+        <p>5월 레이스를 앞두고 매일 러닝 중. 꾸준히 성장하는 중입니다.</p>
+        <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:7px;">
+          <span class="tag">러닝 🏃‍♀️</span>
+          <span class="tag">커뮤니티</span>
+          <span class="tag">자기계발</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Skills & Tools -->
+  <div class="fade fade-6">
+    <div class="section-label">Skills &amp; Tools</div>
+    <div class="skills-grid">
+      <div class="skill-cell">
+        <div class="skill-cell-label">HR Systems</div>
+        <div class="skill-cell-items">SAP SuccessFactors · Oracle e-HR<br>더존(Amaranth) ERP</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-label">Data &amp; Automation</div>
+        <div class="skill-cell-items">Python · pandas · Streamlit · openpyxl<br>Excel VBA · Power Query (M언어)<br>HR 대시보드 개발 (진행 중)</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-label">Design &amp; Content</div>
+        <div class="skill-cell-items">Adobe Photoshop (상)<br>Premiere / After Effects (중)<br>채용공고 디자인 · 사내 영상 편집</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-label">Language</div>
+        <div class="skill-cell-items">한국어 (모국어)<br>영어 — 비즈니스 수준<br>컨퍼런스 콜 · 영문 리포팅 · 이메일</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Certifications & Education -->
+  <div class="fade fade-7">
+    <div class="section-label">Certifications &amp; Education</div>
+    <div class="cert-list">
+      <div class="cert-row">
+        <span class="cert-name">빅데이터분석 실무 과정&nbsp;<span class="tag now">진행 중</span></span>
+        <span class="cert-org">2026.05 · pandas · 데이터 시각화 실무</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">파이썬 및 생성형 AI — 디지털 업무 자동화 기초과정</span>
+        <span class="cert-org">2026.04 · 중앙정보기술인재개발원</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">바이브코딩 업무자동화 과정</span>
+        <span class="cert-org">2026.03 · 한국능률협회</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">ADsP — 데이터분석 준전문가&nbsp;<span class="tag now">취득 목표</span></span>
+        <span class="cert-org">2026 7–8월</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">SQLD — SQL 개발자&nbsp;<span class="tag now">취득 목표</span></span>
+        <span class="cert-org">2026 7–8월</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">SHRM-CP 자격인증 대비과정</span>
+        <span class="cert-org">2020 · KMAC (56h)</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">인사노무 사무원 양성과정</span>
+        <span class="cert-org">2018 · 관악여성인력센터 (168h)</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">서비스(CS) 교육강사 1급</span>
+        <span class="cert-org">2019 · 티에스이코리아</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">자기주도학습코치 1급 · 진로코치지도사 1급</span>
+        <span class="cert-org">2018 · (사)한국학습코치협회</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">감정노동관리사</span>
+        <span class="cert-org">2017 · (사)한국산업간호협회</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">CS 리더스관리사</span>
+        <span class="cert-org">2015 · 한국정보평가협회</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">컴퓨터활용능력 2급</span>
+        <span class="cert-org">2013 · 대한상공회의소</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">성신여자대학교 — 가족소비자학 전공 (3.7 / 4.5)</span>
+        <span class="cert-org">2006 – 2010</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert-name">뉴질랜드 어학연수 — Business Management Level 5</span>
+        <span class="cert-org">2011 – 2013</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer fade fade-8">
+    <div class="footer-name">Gwen Kim</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://github.com/gwanhakim-debug" target="_blank">GitHub</a>
+      <a class="footer-link" href="#">LinkedIn</a>
+      <a class="footer-link" href="#">Contact</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
