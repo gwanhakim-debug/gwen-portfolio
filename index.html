@@ -728,7 +728,7 @@ function openModal(idx) {
   slidesEl.style.width = (d.images.length * 100) + '%';
   slidesEl.innerHTML = d.images.map(src =>
     `<div style="width:${100/d.images.length}%; height:200px; flex-shrink:0;">
-      <img src="${src}" style="width:100%; height:100%; object-fit:cover;" />
+      <img src="${src}" style="width:100%; height:100%; object-fit:contain;" />
     </div>`
   ).join('');
   slidesEl.style.transform = 'translateX(0)';
