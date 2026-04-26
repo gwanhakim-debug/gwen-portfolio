@@ -226,6 +226,27 @@
       }
     }
 
+    /* ── 모바일 레이아웃 최적화 ── */
+    @media (max-width: 768px) {
+      *, *::before, *::after { word-break: break-word; overflow-wrap: break-word; }
+      .hero-left { max-width: 100%; }
+      .hero-stats { max-width: 100% !important; }
+      .hero-desc { max-width: 100%; }
+      .value-grid { grid-template-columns: 1fr; }
+      .tl-row { grid-template-columns: 80px 1fr; gap: 16px; }
+      .exp-row { flex-wrap: wrap; gap: 6px; }
+      .exp-detail { font-size: 13px; }
+      .proj-header { flex-direction: column; gap: 4px; }
+      .modal-inner { width: 95%; }
+      .now-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .tl-row { display: flex; flex-direction: column; gap: 4px; }
+      .tl-duration { display: inline; margin-left: 8px; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 10px 12px; }
+    }
+
     /* ── 메인 콘텐츠 ── */
     .main { background: var(--white); }
 
